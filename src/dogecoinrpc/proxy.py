@@ -61,8 +61,11 @@ class HTTPTransport(object):
                                                       port, None, None, False,
                                                       HTTP_TIMEOUT)
         else:
-            self.connection = httplib.HTTPConnection(self.parsed_url.hostname,
-                                                     port, False, HTTP_TIMEOUT)
+            self.connection = httplib.HTTPConnection(
+                self.parsed_url.hostname,
+                port=port,
+                timeout=HTTP_TIMEOUT,
+            )
 
     def request(self, serialized_data):
         self.connection.request('POST', self.parsed_url.path, serialized_data,

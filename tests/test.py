@@ -6,7 +6,6 @@ Only on the test network.
 '''
 import argparse
 import sys
-sys.path.append('../src')
 
 import dogecoinrpc
 from dogecoinrpc.exceptions import DogecoinException, InsufficientFunds
@@ -30,7 +29,8 @@ if __name__ == "__main__":
     else:
         from dogecoinrpc.config import read_default_config
         cfg = read_default_config(None)
-    port = int(cfg.get('rpcport', '22555'))
+    # port = int(cfg.get('rpcport', '22555'))
+    port = 44556  # for testnet
     rpcuser = cfg.get('rpcuser', '')
 
     connections = []
@@ -94,9 +94,9 @@ if __name__ == "__main__":
             pass
 
     info = conn.getinfo()
-    print "Blocks: %i" % info.blocks
-    print "Connections: %i" % info.connections
-    print "Difficulty: %f" % info.difficulty
+    print("Blocks: %i" % info.blocks)
+    print("Connections: %i" % info.connections)
+    print("Difficulty: %f" % info.difficulty)
 
     m_info = conn.getmininginfo()
     print ("Pooled Transactions: {pooledtx}\n"
