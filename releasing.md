@@ -1,29 +1,40 @@
-Release process
+### Release process
 
-- Update Changelog (using git history output from dist-tools/changelog.sh)
+```bash
+$ pyenv activate python-dogecoin
+$ pip install -e .[dev]
+$ make clean
+$ python -m build
+$ twine upload dist/*
+```
 
-- Change version numbers in setup.py and sphinx/source/conf.py
+* Update Changelog (using git history output from dist-tools/changelog.sh)
 
-- Commit
+* Change version numbers in setup.py and sphinx/source/conf.py
 
-- Make tag and upload to github
+* Commit
+
+* Make tag and upload to github
 
     - git tag -a vX.X
     - git push origin vX.X
 
-- Run make in doc/
+* Run make in doc/
 
-- Update documentation on github
+* Update documentation on github
 
-    - git checkout gh_pages
-    - rm -r doc
-    - mkdir doc
-    - cp -r sphinx/build/html/* doc/
-    - git add doc
-    - git commit -a
-    - git push origin gh-pages:gh-pages 
+```bash
+$ git checkout gh_pages
+$ rm -r doc
+$ mkdir doc
+$ cp -r sphinx/build/html/* doc/
+$ git add doc
+$ git commit -a
+$ git push origin gh-pages:gh-pages
+```
 
-- Upload to pypi
+* Upload to PyPI
 
-  - python setup.py sdist upload
-
+```bash
+$ twine upload dist/*
+```

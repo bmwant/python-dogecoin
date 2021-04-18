@@ -1,6 +1,6 @@
 ## Python Dogecoin
 
-[![PyPI](https://pypi.org/project/python-dogecoin)](https://img.shields.io/pypi/v/python-dogecoin)
+[![PyPI](https://img.shields.io/pypi/v/python-dogecoin)](https://pypi.org/project/python-dogecoin)
 [![Downloads](https://pepy.tech/badge/python-dogecoin)](https://pepy.tech/project/python-dogecoin)
 
 This is a fork of a [dogecoin-python](https://github.com/jcsaaddupuy/dogecoin-python) library focused on a Python 3 support only. Note that you are looking for `python-dogecoin` version [on PyPI](https://pypi.org/project/python-dogecoin/) instead of original `dogecoin-python`.
@@ -12,7 +12,6 @@ This package allows performing commands such as listing the current balance and 
 ```bash
 $ pip install python-dogecoin
 ```
-
 
 ### Development
 
@@ -50,14 +49,4 @@ $ pytest -sv tests/
 ```bash
 $ ./src/dogecoind -daemon -testnet
 $ ./src/dogecoin-cli stop  # stop after end of testing
-```
-
-
-### Releasing
-
-```bash
-$ pip install build
-$ make clean
-$ python -m build
-$ twine upload dist/*
 ```

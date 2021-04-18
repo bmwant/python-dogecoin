@@ -40,7 +40,11 @@ setup(
     python_requires='>=3.6, <4',
     install_requires=[],  # No extra dependencies
     extras_require={
-        'dev': ['check-black==20.8b1'],
+        'dev': [
+            'twine==3.4.1',
+            'black==20.8b1',
+            'build==0.3.1.post1',
+        ],
         'test': ['pytest==6.2.3'],
     },
 )
