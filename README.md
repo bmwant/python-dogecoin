@@ -12,11 +12,22 @@ $ pip install python-dogecoin
 
 
 ### Development
+
+[pyenv](https://github.com/pyenv/pyenv) is used to easily create virtual environment for the development. Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) to quickly setup it locally.
+
 ```bash
 $ pyenv virtualenv 3.8.1 python-dogecoin
 $ pyenv activate python-dogecoin
 $ pip install --upgrade pip
 $ pip install -e .
+```
+
+Formatting your code after adding changes
+
+```bash
+$ pyenv activate python-dogecoin
+$ pip install -e .[dev]
+$ make format
 ```
 
 ### Tests
@@ -25,7 +36,9 @@ You need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and ru
 
 ```bash
 $ pyenv activate python-dogecoin
+$ pip install -e .[test]
 $ python tests/test.py
+$ pytest -sv tests/
 ```
 
 

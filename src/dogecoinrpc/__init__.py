@@ -38,16 +38,17 @@ def connect_to_local(filename=None):
     cfg = read_default_config(filename)
     if cfg is None:
         cfg = {}
-    #port = int(cfg.get('rpcport', '18332' if cfg.get('testnet') else '22555'))
-    port = int(cfg.get('rpcport', '22555'))
-    rpcuser = cfg.get('rpcuser', '')
-    rpcpassword = cfg.get('rpcpassword', '')
+    # port = int(cfg.get('rpcport', '18332' if cfg.get('testnet') else '22555'))
+    port = int(cfg.get("rpcport", "22555"))
+    rpcuser = cfg.get("rpcuser", "")
+    rpcpassword = cfg.get("rpcpassword", "")
 
-    return DogecoinConnection(rpcuser, rpcpassword, 'localhost', port)
+    return DogecoinConnection(rpcuser, rpcpassword, "localhost", port)
 
 
-def connect_to_remote(user, password, host='localhost', port=22555,
-                      use_https=False):
+def connect_to_remote(
+    user, password, host="localhost", port=22555, use_https=False
+):
     """
     Connect to remote or alternative local dogecoin client instance.
 

@@ -35,7 +35,7 @@ def read_config_file(filename):
             line = line.strip()
             if line and not line.startswith("#"):
                 try:
-                    (key, value) = line.split('=', 1)
+                    (key, value) = line.split("=", 1)
                     cfg[key] = value
                 except ValueError:
                     pass  # Happens when line has no '=', ignore
@@ -55,20 +55,24 @@ def read_default_config(filename=None):
     if filename is None:
         import os
         import platform
+
         home = os.getenv("HOME")
         if not home:
-            raise IOError("Home directory not defined, don't know where to look for config file")
+            raise IOError(
+                "Home directory not defined, don't know where to look for config file"
+            )
 
         if platform.system() == "Darwin":
-            location = 'Library/Application Support/Dogecoin/dogecoin.conf'
-        elif platform.system() in ('Windows', 'Microsoft'): 
-            location = 'AppData\\Roaming\\DogeCoin\\dogecoin.conf'
+            location = "Library/Application Support/Dogecoin/dogecoin.conf"
+        elif platform.system() in ("Windows", "Microsoft"):
+            location = "AppData\\Roaming\\DogeCoin\\dogecoin.conf"
         else:
-            location = '.dogecoin/dogecoin.conf'
+            location = ".dogecoin/dogecoin.conf"
         filename = os.path.join(home, location)
 
     elif filename.startswith("~"):
         import os
+
         filename = os.path.expanduser(filename)
 
     try:

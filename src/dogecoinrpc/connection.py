@@ -21,11 +21,21 @@
 Connect to Dogecoin server via JSON-RPC.
 """
 from dogecoinrpc.proxy import AuthServiceProxy
-from dogecoinrpc.exceptions import (wrap_exception, DogecoinException,
-                                   WalletPassphraseIncorrect,
-                                   WalletAlreadyUnlocked)
-from dogecoinrpc.data import (ServerInfo, AccountInfo, AddressInfo, TransactionInfo,
-                             AddressValidation, WorkItem, MiningInfo)
+from dogecoinrpc.exceptions import (
+    wrap_exception,
+    DogecoinException,
+    WalletPassphraseIncorrect,
+    WalletAlreadyUnlocked,
+)
+from dogecoinrpc.data import (
+    ServerInfo,
+    AccountInfo,
+    AddressInfo,
+    TransactionInfo,
+    AddressValidation,
+    WorkItem,
+    MiningInfo,
+)
 
 
 class DogecoinConnection(object):
@@ -40,14 +50,20 @@ class DogecoinConnection(object):
     - *host* -- Dogecoin JSON-RPC host.
     - *port* -- Dogecoin JSON-RPC port.
     """
-    def __init__(self, user, password, host='localhost', port=22555,
-                 use_https=False):
+
+    def __init__(
+        self, user, password, host="localhost", port=22555, use_https=False
+    ):
         """
         Create a new dogecoin server connection.
         """
-        url = 'http{s}://{user}:{password}@{host}:{port}/'.format(
-            s='s' if use_https else '',
-            user=user, password=password, host=host, port=port)
+        url = "http{s}://{user}:{password}@{host}:{port}/".format(
+            s="s" if use_https else "",
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+        )
         self.url = url
         self.proxy = AuthServiceProxy(url, exception_wrapper=wrap_exception)
 
@@ -195,7 +211,9 @@ class DogecoinConnection(object):
         """
         return self.proxy.getaddressesbyaccount(account)
 
-    def sendtoaddress(self, dogecoinaddress, amount, comment=None, comment_to=None):
+    def sendtoaddress(
+        self, dogecoinaddress, amount, comment=None, comment_to=None
+    ):
         """
         Sends *amount* from the server's available balance to *dogecoinaddress*.
 
@@ -213,7 +231,9 @@ class DogecoinConnection(object):
         elif comment_to is None:
             return self.proxy.sendtoaddress(dogecoinaddress, amount, comment)
         else:
-            return self.proxy.sendtoaddress(dogecoinaddress, amount, comment, comment_to)
+            return self.proxy.sendtoaddress(
+                dogecoinaddress, amount, comment, comment_to
+            )
 
     def getreceivedbyaddress(self, dogecoinaddress, minconf=1):
         """
@@ -305,7 +325,9 @@ class DogecoinConnection(object):
         """
         return self.proxy.createrawtransaction(inputs, outputs)
 
-    def signrawtransaction(self, hexstring, previous_transactions=None, private_keys=None):
+    def signrawtransaction(
+        self, hexstring, previous_transactions=None, private_keys=None
+    ):
         """
         Sign inputs for raw transaction (serialized, hex-encoded).
 
@@ -323,7 +345,11 @@ class DogecoinConnection(object):
         - *private_keys* -- A (possibly empty) list of base58-encoded private
             keys that, if given, will be the only keys used to sign the transaction.
         """
-        return dict(self.proxy.signrawtransaction(hexstring, previous_transactions, private_keys))
+        return dict(
+            self.proxy.signrawtransaction(
+                hexstring, previous_transactions, private_keys
+            )
+        )
 
     def decoderawtransaction(self, hexstring):
         """
@@ -337,7 +363,9 @@ class DogecoinConnection(object):
 
     def listsinceblock(self, block_hash):
         res = self.proxy.listsinceblock(block_hash)
-        res['transactions'] = [TransactionInfo(**x) for x in res['transactions']]
+        res["transactions"] = [
+            TransactionInfo(**x) for x in res["transactions"]
+        ]
         return res
 
     def listreceivedbyaddress(self, minconf=1, includeempty=False):
@@ -352,8 +380,10 @@ class DogecoinConnection(object):
         - *includeempty* -- Whether to include addresses that haven't received any payments.
 
         """
-        return [AddressInfo(**x) for x in
-                self.proxy.listreceivedbyaddress(minconf, includeempty)]
+        return [
+            AddressInfo(**x)
+            for x in self.proxy.listreceivedbyaddress(minconf, includeempty)
+        ]
 
     def listaccounts(self, minconf=1, as_dict=False):
         """
@@ -381,8 +411,10 @@ class DogecoinConnection(object):
 
         - *includeempty* -- Whether to include addresses that haven't received any payments.
         """
-        return [AccountInfo(**x) for x in
-                self.proxy.listreceivedbyaccount(minconf, includeempty)]
+        return [
+            AccountInfo(**x)
+            for x in self.proxy.listreceivedbyaccount(minconf, includeempty)
+        ]
 
     def listtransactions(self, account=None, count=10, from_=0, address=None):
         """
@@ -398,10 +430,17 @@ class DogecoinConnection(object):
         - *from_* -- Skip the first <from_> transactions.
         - *address* -- Receive address to consider
         """
-        accounts = [account] if account is not None else self.listaccounts(as_dict=True).keys()
-        return [TransactionInfo(**tx) for acc in accounts for
-                tx in self.proxy.listtransactions(acc, count, from_) if
-                address is None or tx["address"] == address]
+        accounts = (
+            [account]
+            if account is not None
+            else self.listaccounts(as_dict=True).keys()
+        )
+        return [
+            TransactionInfo(**tx)
+            for acc in accounts
+            for tx in self.proxy.listtransactions(acc, count, from_)
+            if address is None or tx["address"] == address
+        ]
 
     def backupwallet(self, destination):
         """
@@ -459,10 +498,19 @@ class DogecoinConnection(object):
         if comment is None:
             return self.proxy.move(fromaccount, toaccount, amount, minconf)
         else:
-            return self.proxy.move(fromaccount, toaccount, amount, minconf, comment)
+            return self.proxy.move(
+                fromaccount, toaccount, amount, minconf, comment
+            )
 
-    def sendfrom(self, fromaccount, todogecoinaddress, amount, minconf=1, comment=None,
-                 comment_to=None):
+    def sendfrom(
+        self,
+        fromaccount,
+        todogecoinaddress,
+        amount,
+        minconf=1,
+        comment=None,
+        comment_to=None,
+    ):
         """
         Sends amount from account's balance to dogecoinaddress. This method will fail
         if there is less than amount dogecoins with minconf confirmations in the account's
@@ -480,12 +528,22 @@ class DogecoinConnection(object):
 
         """
         if comment is None:
-            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf)
+            return self.proxy.sendfrom(
+                fromaccount, todogecoinaddress, amount, minconf
+            )
         elif comment_to is None:
-            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf, comment)
+            return self.proxy.sendfrom(
+                fromaccount, todogecoinaddress, amount, minconf, comment
+            )
         else:
-            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf,
-                                       comment, comment_to)
+            return self.proxy.sendfrom(
+                fromaccount,
+                todogecoinaddress,
+                amount,
+                minconf,
+                comment,
+                comment_to,
+            )
 
     def sendmany(self, fromaccount, todict, minconf=1, comment=None):
         """
@@ -553,8 +611,10 @@ class DogecoinConnection(object):
 
 
         """
-        return [TransactionInfo(**tx) for tx in
-                self.proxy.listunspent(minconf, maxconf)]
+        return [
+            TransactionInfo(**tx)
+            for tx in self.proxy.listunspent(minconf, maxconf)
+        ]
 
     def keypoolrefill(self):
         "Fills the keypool, requires wallet passphrase to be set."
@@ -592,7 +652,9 @@ class DogecoinConnection(object):
         """
         return self.proxy.walletlock()
 
-    def walletpassphrasechange(self, oldpassphrase, newpassphrase, dont_raise=False):
+    def walletpassphrasechange(
+        self, oldpassphrase, newpassphrase, dont_raise=False
+    ):
         """
         Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.
 
@@ -609,18 +671,17 @@ class DogecoinConnection(object):
                 return False
             raise exception
 
-    def importprivkey(self, privkey, acct='', rescan=True):
+    def importprivkey(self, privkey, acct="", rescan=True):
         """
         import private key <privkey> to account [acct], optionally rescanning blockchain .
 
         Arguments:
 
         - *privkey* -- private key to import.
-	- [acct] -- name of account to associate with private key
-	- [rescan] -- rescan blockchain for transcations containing altcoin address associated with privkey
+        - [acct] -- name of account to associate with private key
+        - [rescan] -- rescan blockchain for transcations containing altcoin address associated with privkey
         """
         return self.proxy.importprivkey(privkey, acct, rescan)
-
 
     def dumpprivkey(self, address):
         """

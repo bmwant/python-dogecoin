@@ -28,47 +28,59 @@ class DogecoinException(Exception):
 
     - *code* -- Error code from ``dogecoind``.
     """
+
     # Standard JSON-RPC 2.0 errors
-    INVALID_REQUEST  = -32600,
-    METHOD_NOT_FOUND = -32601,
-    INVALID_PARAMS   = -32602,
-    INTERNAL_ERROR   = -32603,
-    PARSE_ERROR      = -32700,
+    INVALID_REQUEST = (-32600,)
+    METHOD_NOT_FOUND = (-32601,)
+    INVALID_PARAMS = (-32602,)
+    INTERNAL_ERROR = (-32603,)
+    PARSE_ERROR = (-32700,)
 
     # General application defined errors
-    MISC_ERROR                  = -1  # std::exception thrown in command handling
-    FORBIDDEN_BY_SAFE_MODE      = -2  # Server is in safe mode, and command is not allowed in safe mode
-    TYPE_ERROR                  = -3  # Unexpected type was passed as parameter
-    INVALID_ADDRESS_OR_KEY      = -5  # Invalid address or key
-    OUT_OF_MEMORY               = -7  # Ran out of memory during operation
-    INVALID_PARAMETER           = -8  # Invalid, missing or duplicate parameter
-    DATABASE_ERROR              = -20 # Database error
-    DESERIALIZATION_ERROR       = -22 # Error parsing or validating structure in raw format
+    MISC_ERROR = -1  # std::exception thrown in command handling
+    FORBIDDEN_BY_SAFE_MODE = (
+        -2
+    )  # Server is in safe mode, and command is not allowed in safe mode
+    TYPE_ERROR = -3  # Unexpected type was passed as parameter
+    INVALID_ADDRESS_OR_KEY = -5  # Invalid address or key
+    OUT_OF_MEMORY = -7  # Ran out of memory during operation
+    INVALID_PARAMETER = -8  # Invalid, missing or duplicate parameter
+    DATABASE_ERROR = -20  # Database error
+    DESERIALIZATION_ERROR = (
+        -22
+    )  # Error parsing or validating structure in raw format
 
     # P2P client errors
-    CLIENT_NOT_CONNECTED        = -9  # Dogecoin is not connected
-    CLIENT_IN_INITIAL_DOWNLOAD  = -10 # Still downloading initial blocks
+    CLIENT_NOT_CONNECTED = -9  # Dogecoin is not connected
+    CLIENT_IN_INITIAL_DOWNLOAD = -10  # Still downloading initial blocks
 
     # Wallet errors
-    WALLET_ERROR                = -4  # Unspecified problem with wallet (key not found etc.)
-    WALLET_INSUFFICIENT_FUNDS   = -6  # Not enough funds in wallet or account
-    WALLET_INVALID_ACCOUNT_NAME = -11 # Invalid account name
-    WALLET_KEYPOOL_RAN_OUT      = -12 # Keypool ran out, call keypoolrefill first
-    WALLET_UNLOCK_NEEDED        = -13 # Enter the wallet passphrase with walletpassphrase first
-    WALLET_PASSPHRASE_INCORRECT = -14 # The wallet passphrase entered was incorrect
-    WALLET_WRONG_ENC_STATE      = -15 # Command given in wrong wallet encryption state (encrypting an encrypted wallet etc.)
-    WALLET_ENCRYPTION_FAILED    = -16 # Failed to encrypt the wallet
-    WALLET_ALREADY_UNLOCKED     = -17 # Wallet is already unlocked
+    WALLET_ERROR = -4  # Unspecified problem with wallet (key not found etc.)
+    WALLET_INSUFFICIENT_FUNDS = -6  # Not enough funds in wallet or account
+    WALLET_INVALID_ACCOUNT_NAME = -11  # Invalid account name
+    WALLET_KEYPOOL_RAN_OUT = -12  # Keypool ran out, call keypoolrefill first
+    WALLET_UNLOCK_NEEDED = (
+        -13
+    )  # Enter the wallet passphrase with walletpassphrase first
+    WALLET_PASSPHRASE_INCORRECT = (
+        -14
+    )  # The wallet passphrase entered was incorrect
+    WALLET_WRONG_ENC_STATE = (
+        -15
+    )  # Command given in wrong wallet encryption state (encrypting an encrypted wallet etc.)
+    WALLET_ENCRYPTION_FAILED = -16  # Failed to encrypt the wallet
+    WALLET_ALREADY_UNLOCKED = -17  # Wallet is already unlocked
 
     def __init__(self, error):
-        Exception.__init__(self, error['message'])
-        self.code = error['code']
+        Exception.__init__(self, error["message"])
+        self.code = error["code"]
 
 
 class TransportException(Exception):
     """
     Class to define transport-level failures.
     """
+
     def __init__(self, msg, code=None, protocol=None, raw_detail=None):
         self.msg = msg
         self.code = code
@@ -78,7 +90,9 @@ class TransportException(Exception):
         Transport-level failure: {msg}
         Code: {code}
         Protocol: {protocol}
-        """.format(msg=msg, code=code, protocol=protocol)
+        """.format(
+            msg=msg, code=code, protocol=protocol
+        )
 
     def __str__(self):
         return self.s
@@ -95,6 +109,8 @@ class JSONTypeError(DogecoinException):
     """
     Unexpected type was passed as parameter
     """
+
+
 InvalidAmount = JSONTypeError  # Backwards compatibility
 
 
@@ -102,6 +118,8 @@ class InvalidAddressOrKey(DogecoinException):
     """
     Invalid address or key.
     """
+
+
 InvalidTransactionID = InvalidAddressOrKey  # Backwards compatibility
 
 
@@ -143,6 +161,8 @@ class WalletError(DogecoinException):
     """
     Unspecified problem with wallet (key not found etc.)
     """
+
+
 SendError = WalletError  # Backwards compatibility
 
 
@@ -222,6 +242,9 @@ def wrap_exception(error):
     Convert a JSON error object to a more specific Dogecoin exception.
     """
     # work around to temporarily fix https://github.com/bitcoin/bitcoin/issues/3007
-    if error['code'] == DogecoinException.WALLET_ERROR and error['message'] == u'Insufficient funds':
-        error['code'] = DogecoinException.WALLET_INSUFFICIENT_FUNDS
-    return _exception_map.get(error['code'], DogecoinException)(error)
+    if (
+        error["code"] == DogecoinException.WALLET_ERROR
+        and error["message"] == "Insufficient funds"
+    ):
+        error["code"] = DogecoinException.WALLET_INSUFFICIENT_FUNDS
+    return _exception_map.get(error["code"], DogecoinException)(error)

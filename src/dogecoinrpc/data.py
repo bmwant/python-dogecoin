@@ -94,7 +94,7 @@ class TransactionInfo(DStruct):
     - *account* -- account name.
 
     - *address* -- the address dogecoins were sent to, or received from.
-    
+
     - *category* -- will be generate, send, receive, or move.
 
     - *amount* -- amount of transaction.

@@ -4,3 +4,8 @@ clean:
 	@rm -f `find . -type f -name '*.py[co]' `
 	@rm -rf dist/
 	@rm -rf build/
+
+
+.PHONY: format
+format:
+	@black .

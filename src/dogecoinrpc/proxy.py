@@ -26,6 +26,7 @@ except ImportError:
 import base64
 import json
 import decimal
+
 try:
     import urllib.parse as urlparse
 except ImportError:
@@ -52,14 +53,16 @@ class HTTPTransport(object):
             port = 80
         else:
             port = self.parsed_url.port
-        authpair = "%s:%s" % (self.parsed_url.username,
-                              self.parsed_url.password)
-        authpair = authpair.encode('utf8')
-        self.auth_header = "Basic ".encode('utf8') + base64.b64encode(authpair)
-        if self.parsed_url.scheme == 'https':
-            self.connection = httplib.HTTPSConnection(self.parsed_url.hostname,
-                                                      port, None, None, False,
-                                                      HTTP_TIMEOUT)
+        authpair = "%s:%s" % (
+            self.parsed_url.username,
+            self.parsed_url.password,
+        )
+        authpair = authpair.encode("utf8")
+        self.auth_header = "Basic ".encode("utf8") + base64.b64encode(authpair)
+        if self.parsed_url.scheme == "https":
+            self.connection = httplib.HTTPSConnection(
+                self.parsed_url.hostname, port, None, None, False, HTTP_TIMEOUT
+            )
         else:
             self.connection = httplib.HTTPConnection(
                 self.parsed_url.hostname,
@@ -68,28 +71,39 @@ class HTTPTransport(object):
             )
 
     def request(self, serialized_data):
-        self.connection.request('POST', self.parsed_url.path, serialized_data,
-                                {'Host': self.parsed_url.hostname,
-                                 'User-Agent': USER_AGENT,
-                                 'Authorization': self.auth_header,
-                                 'Content-type': 'application/json'})
+        self.connection.request(
+            "POST",
+            self.parsed_url.path,
+            serialized_data,
+            {
+                "Host": self.parsed_url.hostname,
+                "User-Agent": USER_AGENT,
+                "Authorization": self.auth_header,
+                "Content-type": "application/json",
+            },
+        )
 
         httpresp = self.connection.getresponse()
         if httpresp is None:
-            self._raise_exception({
-                'code': -342, 'message': 'missing HTTP response from server'})
+            self._raise_exception(
+                {"code": -342, "message": "missing HTTP response from server"}
+            )
         elif httpresp.status == httplib.FORBIDDEN:
             msg = "dogecoind returns 403 Forbidden. Is your IP allowed?"
-            raise TransportException(msg, code=403,
-                                     protocol=self.parsed_url.scheme,
-                                     raw_detail=httpresp)
+            raise TransportException(
+                msg,
+                code=403,
+                protocol=self.parsed_url.scheme,
+                raw_detail=httpresp,
+            )
 
         resp = httpresp.read()
-        return resp.decode('utf8')
+        return resp.decode("utf8")
 
 
 class FakeTransport(object):
     """A simple testing facility."""
+
     def __init__(self):
         self._data = defaultdict(deque)
 
@@ -101,7 +115,7 @@ class FakeTransport(object):
 
     def request(self, serialized_data):
         data = json.loads(serialized_data, parse_float=decimal.Decimal)
-        method_name = data['method']
+        method_name = data["method"]
         return self._data[method_name].popleft()
 
 
@@ -111,26 +125,29 @@ class RPCMethod(object):
         self._service_proxy = service_proxy
 
     def __getattr__(self, name):
-        new_name = '{}.{}'.format(self._method_name, name)
+        new_name = "{}.{}".format(self._method_name, name)
         return RPCMethod(new_name, self._service_proxy)
 
     def __call__(self, *args):
         self._service_proxy._id_counter += 1
-        data = {'version': '1.1',
-                'method': self._method_name,
-                'params': args,
-                'id': self._service_proxy._id_counter}
+        data = {
+            "version": "1.1",
+            "method": self._method_name,
+            "params": args,
+            "id": self._service_proxy._id_counter,
+        }
         postdata = json.dumps(data)
         resp = self._service_proxy._transport.request(postdata)
         resp = json.loads(resp, parse_float=decimal.Decimal)
 
-        if resp['error'] is not None:
-            self._service_proxy._raise_exception(resp['error'])
-        elif 'result' not in resp:
-            self._service_proxy._raise_exception({
-                'code': -343, 'message': 'missing JSON-RPC result'})
+        if resp["error"] is not None:
+            self._service_proxy._raise_exception(resp["error"])
+        elif "result" not in resp:
+            self._service_proxy._raise_exception(
+                {"code": -343, "message": "missing JSON-RPC result"}
+            )
         else:
-            return resp['result']
+            return resp["result"]
 
     def __repr__(self):
         return '<RPCMethod object "{name}">'.format(name=self._method_name)
@@ -144,11 +161,13 @@ class AuthServiceProxy(object):
     exception_wrapper is a callable accepting a dictionary containing error
     code and message and returning a suitable exception object.
     """
+
     def __init__(self, service_url, transport=None, exception_wrapper=None):
         self._service_url = service_url
         self._id_counter = 0
-        self._transport = (HTTPTransport(service_url) if transport is None
-                           else transport)
+        self._transport = (
+            HTTPTransport(service_url) if transport is None else transport
+        )
         self._exception_wrapper = exception_wrapper
 
     def __getattr__(self, name):
