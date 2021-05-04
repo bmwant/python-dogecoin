@@ -20,6 +20,9 @@
 """
 Utilities for reading dogecoin configuration files.
 """
+import os
+import platform
+from pathlib import Path
 
 
 def read_config_file(filename):
@@ -28,8 +31,7 @@ def read_config_file(filename):
     Raises :const:`IOError` if unable to open file, or :const:`ValueError`
     if an parse error occurs.
     """
-    f = open(filename)
-    try:
+    with opne(filename) as f:
         cfg = {}
         for line in f:
             line = line.strip()
@@ -39,8 +41,6 @@ def read_config_file(filename):
                     cfg[key] = value
                 except ValueError:
                     pass  # Happens when line has no '=', ignore
-    finally:
-        f.close()
     return cfg
 
 
@@ -53,15 +53,7 @@ def read_default_config(filename=None):
     - `filename`: Path to a configuration file in a non-standard location (optional)
     """
     if filename is None:
-        import os
-        import platform
-
-        home = os.getenv("HOME")
-        if not home:
-            raise IOError(
-                "Home directory not defined, don't know where to look for config file"
-            )
-
+        home = str(Path.home())
         if platform.system() == "Darwin":
             location = "Library/Application Support/Dogecoin/dogecoin.conf"
         elif platform.system() in ("Windows", "Microsoft"):
@@ -71,8 +63,6 @@ def read_default_config(filename=None):
         filename = os.path.join(home, location)
 
     elif filename.startswith("~"):
-        import os
-
         filename = os.path.expanduser(filename)
 
     try:

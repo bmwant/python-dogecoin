@@ -20,6 +20,8 @@
 """
 dogecoin-python - Easy-to-use Dogecoin API client
 """
+from dogecoinrpc.connection import DogecoinConnection
+from dogecoinrpc.config import read_default_config
 
 
 def connect_to_local(filename=None):
@@ -32,14 +34,8 @@ def connect_to_local(filename=None):
 
         - `filename`: Path to a configuration file in a non-standard location (optional)
     """
-    from dogecoinrpc.connection import DogecoinConnection
-    from dogecoinrpc.config import read_default_config
-
-    cfg = read_default_config(filename)
-    if cfg is None:
-        cfg = {}
-    # port = int(cfg.get('rpcport', '18332' if cfg.get('testnet') else '22555'))
-    port = int(cfg.get("rpcport", "22555"))
+    cfg = read_default_config(filename) or {}
+    port = int(cfg.get("rpcport", "18332" if cfg.get("testnet") else "22555"))
     rpcuser = cfg.get("rpcuser", "")
     rpcpassword = cfg.get("rpcpassword", "")
 
@@ -54,6 +50,4 @@ def connect_to_remote(
 
     Returns a :class:`~dogecoinrpc.connection.DogecoinConnection` object.
     """
-    from dogecoinrpc.connection import DogecoinConnection
-
     return DogecoinConnection(user, password, host, port, use_https)

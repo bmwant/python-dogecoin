@@ -28,7 +28,7 @@ Formatting your code after adding changes
 
 ```bash
 $ pyenv activate python-dogecoin
-$ pip install -e .[dev]
+$ pip install -e ".[dev]"
 $ make format
 ```
 
@@ -38,11 +38,10 @@ You need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and ru
 
 ```bash
 $ pyenv activate python-dogecoin
-$ pip install -e .[test]
+$ pip install -e ".[test]"
 $ python tests/test.py
 $ pytest -sv tests/
 ```
-
 
 ### Running Dogecoin server
 
