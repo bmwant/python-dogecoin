@@ -44,7 +44,10 @@ setup(
             'twine==3.4.1',
             'black==20.8b1',
             'build==0.3.1.post1',
-            'Sphinx==3.5.4',
+        ],
+        'doc': [
+            'mkdocs==1.1.2',
+            'mkdocstrings==0.15.0',
         ],
         'test': ['pytest==6.2.3'],
     },

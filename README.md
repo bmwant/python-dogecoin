@@ -2,6 +2,8 @@
 
 [![PyPI](https://img.shields.io/pypi/v/python-dogecoin)](https://pypi.org/project/python-dogecoin)
 [![Downloads](https://pepy.tech/badge/python-dogecoin)](https://pepy.tech/project/python-dogecoin)
+[![Documentation Status](https://readthedocs.org/projects/python-dogecoin/badge/?version=latest)](https://python-dogecoin.readthedocs.io/en/latest/?badge=latest)
+
 
 This is a fork of a [dogecoin-python](https://github.com/jcsaaddupuy/dogecoin-python) library focused on a Python 3 support only. Note that you are looking for `python-dogecoin` version [on PyPI](https://pypi.org/project/python-dogecoin/) instead of original `dogecoin-python`.
 
