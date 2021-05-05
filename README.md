@@ -7,6 +7,10 @@ This is a fork of a [dogecoin-python](https://github.com/jcsaaddupuy/dogecoin-py
 
 This package allows performing commands such as listing the current balance and sending coins to the Satoshi (original) client from Python. The communication with the client happens over JSON-RPC.
 
+:book: Documentation for the library can be found [here](https://python-dogecoin.readthedocs.io/en/latest/).
+
+:lemon: This project uses [podmena](https://github.com/bmwant/podmena) library to add fancy icons to commit messages.
+
 ### Installation
 
 ```bash
@@ -43,9 +47,10 @@ $ python tests/test.py
 $ pytest -sv tests/
 ```
 
-### Running Dogecoin server
+### Much donations
 
-```bash
-$ ./src/dogecoind -daemon -testnet
-$ ./src/dogecoin-cli stop  # stop after end of testing
-```
+If you love [Dogecoin](https://dogecoin.com/) and want to support the project you can send coins to this wallet
+
+`D7DA74qzZUyh9cctCxWovPTEovUSjGzL2S`
+
+:dog2: :rocket: :full_moon:

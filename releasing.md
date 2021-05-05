@@ -23,7 +23,7 @@ $ git push origin vX.X
 * Build documentation
 
 ```bash
-$ mkdocs build
+$ mkdocs build --clean
 ```
 
 * Update documentation on github
