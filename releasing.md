@@ -9,7 +9,7 @@ $ pip install -e .[dev]
 
 * Update Changelog (`changelog.md` file)
 
-* Change version numbers in `setup.py` and `sphinx/source/conf.py` files
+* Change version number in `setup.py` file
 
 * Commit
 
@@ -20,21 +20,11 @@ $ git tag -a vX.X
 $ git push origin vX.X
 ```
 
-* Build documentation
+* Build and validate documentation
 
 ```bash
 $ mkdocs build --clean
-```
-
-* Update documentation on github
-
-```bash
-$ git checkout gh_pages
-$ make clean-doc
-$ cp -r sphinx/build/html/* doc/
-$ git add doc
-$ git commit -a
-$ git push origin gh-pages:gh-pages
+$ mkdocs serve
 ```
 
 * Build package
