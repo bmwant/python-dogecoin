@@ -5,6 +5,9 @@ clean:
 	@rm -rf dist/
 	@rm -rf build/
 
+.PHONY: clean-docs
+clean-docs:
+	@rm -rf doc/ && mkdir -p doc
 
 .PHONY: format
 format:
