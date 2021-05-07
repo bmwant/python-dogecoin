@@ -1,15 +1,8 @@
-# coding=utf-8
-'''
-Test script
-*WARNING* Don't run this on a production dogecoin server! *WARNING*
-Only on the test network.
-'''
 import argparse
 import sys
 
 import dogecoinrpc
 from dogecoinrpc.exceptions import DogecoinException, InsufficientFunds
-
 
 from decimal import Decimal
 
