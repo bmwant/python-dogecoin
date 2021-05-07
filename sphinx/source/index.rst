@@ -1,9 +1,4 @@
-==================================================
- dogecoin-python - Easy-to-use Dogecoin API client.
-==================================================
 
-``dogecoin-python`` is a set of Python libraries that allows easy access to the
-dogecoin_ peer-to-peer cryptocurrency client API.
 
 Contents:
 

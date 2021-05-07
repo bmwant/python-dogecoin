@@ -1,4 +1,19 @@
 site_name: python-dogecoin
+site_author: Misha Behersky
+repo_url: https://github.com/bmwant/python-dogecoin
 theme: readthedocs
 plugins:
-- mkdocstrings
+  - search
+  - mkdocstrings
+nav:
+  - 'index.md'
+  - 'introduction.md'
+  - 'Usage examples': 'usage.md'
+  - 'API reference':
+    - 'API reference': 'api.md'
+    - 'dogecoinrpc': 'apireference/dogecoinrpc.md'
+    - 'dogecoinrpc.connection': 'apireference/dogecoinrpc.connection.md'
+    - 'dogecoinrpc.exceptions': 'apireference/dogecoinrpc.exceptions.md'
+    - 'dogecoinrpc.data': 'apireference/dogecoinrpc.data.md'
+    - 'dogecoinrpc.config': 'apireference/dogecoinrpc.config.md'
+    - 'dogecoinrpc.util': 'apireference/dogecoinrpc.util.md'

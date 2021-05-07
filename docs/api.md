@@ -5,3 +5,4 @@
 * [dogecoinrpc.exceptions — Exception definitions](apireference/dogecoinrpc.exceptions.md)
 * [dogecoinrpc.data — Dogecoin RPC service, data objects](apireference/dogecoinrpc.data.md)
 * [dogecoinrpc.config — Utilities for reading dogecoin configuration files](apireference/dogecoinrpc.config.md)
+* [dogecoinrpc.util — Generic utilities used by dogecoin client library](apireference/dogecoinrpc.util.md)
