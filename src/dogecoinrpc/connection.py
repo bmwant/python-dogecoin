@@ -51,9 +51,7 @@ class DogecoinConnection(object):
     - *port* -- Dogecoin JSON-RPC port.
     """
 
-    def __init__(
-        self, user, password, host="localhost", port=22555, use_https=False
-    ):
+    def __init__(self, user, password, host="localhost", port=22555, use_https=False):
         """
         Create a new dogecoin server connection.
         """
@@ -211,9 +209,7 @@ class DogecoinConnection(object):
         """
         return self.proxy.getaddressesbyaccount(account)
 
-    def sendtoaddress(
-        self, dogecoinaddress, amount, comment=None, comment_to=None
-    ):
+    def sendtoaddress(self, dogecoinaddress, amount, comment=None, comment_to=None):
         """
         Sends *amount* from the server's available balance to *dogecoinaddress*.
 
@@ -231,9 +227,7 @@ class DogecoinConnection(object):
         elif comment_to is None:
             return self.proxy.sendtoaddress(dogecoinaddress, amount, comment)
         else:
-            return self.proxy.sendtoaddress(
-                dogecoinaddress, amount, comment, comment_to
-            )
+            return self.proxy.sendtoaddress(dogecoinaddress, amount, comment, comment_to)
 
     def getreceivedbyaddress(self, dogecoinaddress, minconf=1):
         """
@@ -325,9 +319,7 @@ class DogecoinConnection(object):
         """
         return self.proxy.createrawtransaction(inputs, outputs)
 
-    def signrawtransaction(
-        self, hexstring, previous_transactions=None, private_keys=None
-    ):
+    def signrawtransaction(self, hexstring, previous_transactions=None, private_keys=None):
         """
         Sign inputs for raw transaction (serialized, hex-encoded).
 
@@ -345,11 +337,7 @@ class DogecoinConnection(object):
         - *private_keys* -- A (possibly empty) list of base58-encoded private
             keys that, if given, will be the only keys used to sign the transaction.
         """
-        return dict(
-            self.proxy.signrawtransaction(
-                hexstring, previous_transactions, private_keys
-            )
-        )
+        return dict(self.proxy.signrawtransaction(hexstring, previous_transactions, private_keys))
 
     def decoderawtransaction(self, hexstring):
         """
@@ -363,9 +351,7 @@ class DogecoinConnection(object):
 
     def listsinceblock(self, block_hash):
         res = self.proxy.listsinceblock(block_hash)
-        res["transactions"] = [
-            TransactionInfo(**x) for x in res["transactions"]
-        ]
+        res["transactions"] = [TransactionInfo(**x) for x in res["transactions"]]
         return res
 
     def listreceivedbyaddress(self, minconf=1, includeempty=False):
@@ -380,10 +366,7 @@ class DogecoinConnection(object):
         - *includeempty* -- Whether to include addresses that haven't received any payments.
 
         """
-        return [
-            AddressInfo(**x)
-            for x in self.proxy.listreceivedbyaddress(minconf, includeempty)
-        ]
+        return [AddressInfo(**x) for x in self.proxy.listreceivedbyaddress(minconf, includeempty)]
 
     def listaccounts(self, minconf=1, as_dict=False):
         """
@@ -411,10 +394,7 @@ class DogecoinConnection(object):
 
         - *includeempty* -- Whether to include addresses that haven't received any payments.
         """
-        return [
-            AccountInfo(**x)
-            for x in self.proxy.listreceivedbyaccount(minconf, includeempty)
-        ]
+        return [AccountInfo(**x) for x in self.proxy.listreceivedbyaccount(minconf, includeempty)]
 
     def listtransactions(self, account=None, count=10, from_=0, address=None):
         """
@@ -430,11 +410,7 @@ class DogecoinConnection(object):
         - *from_* -- Skip the first <from_> transactions.
         - *address* -- Receive address to consider
         """
-        accounts = (
-            [account]
-            if account is not None
-            else self.listaccounts(as_dict=True).keys()
-        )
+        accounts = [account] if account is not None else self.listaccounts(as_dict=True).keys()
         return [
             TransactionInfo(**tx)
             for acc in accounts
@@ -498,9 +474,7 @@ class DogecoinConnection(object):
         if comment is None:
             return self.proxy.move(fromaccount, toaccount, amount, minconf)
         else:
-            return self.proxy.move(
-                fromaccount, toaccount, amount, minconf, comment
-            )
+            return self.proxy.move(fromaccount, toaccount, amount, minconf, comment)
 
     def sendfrom(
         self,
@@ -528,13 +502,9 @@ class DogecoinConnection(object):
 
         """
         if comment is None:
-            return self.proxy.sendfrom(
-                fromaccount, todogecoinaddress, amount, minconf
-            )
+            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf)
         elif comment_to is None:
-            return self.proxy.sendfrom(
-                fromaccount, todogecoinaddress, amount, minconf, comment
-            )
+            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf, comment)
         else:
             return self.proxy.sendfrom(
                 fromaccount,
@@ -596,10 +566,7 @@ class DogecoinConnection(object):
 
 
         """
-        return [
-            TransactionInfo(**tx)
-            for tx in self.proxy.listunspent(minconf, maxconf)
-        ]
+        return [TransactionInfo(**tx) for tx in self.proxy.listunspent(minconf, maxconf)]
 
     def keypoolrefill(self):
         "Fills the keypool, requires wallet passphrase to be set."
@@ -637,9 +604,7 @@ class DogecoinConnection(object):
         """
         return self.proxy.walletlock()
 
-    def walletpassphrasechange(
-        self, oldpassphrase, newpassphrase, dont_raise=False
-    ):
+    def walletpassphrasechange(self, oldpassphrase, newpassphrase, dont_raise=False):
         """
         Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.
 
@@ -658,7 +623,7 @@ class DogecoinConnection(object):
 
     def importprivkey(self, privkey, acct="", rescan=True):
         """
-        import private key <privkey> to account [acct], optionally rescanning blockchain .
+        Imports private key <privkey> to account [acct], optionally rescanning blockchain.
 
         Arguments:
 

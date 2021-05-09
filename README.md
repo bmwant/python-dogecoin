@@ -65,6 +65,7 @@ To launch basic set of unittests
 $ pyenv activate python-dogecoin
 $ pip install -e ".[test]"
 $ pytest -sv tests/
+$ flake8 .  # lint code to spot any other errors
 ```
 
 To launch integration tests you need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and running and configured to use `testnet`.

@@ -85,9 +85,7 @@ class HTTPTransport(object):
 
         httpresp = self.connection.getresponse()
         if httpresp is None:
-            self._raise_exception(
-                {"code": -342, "message": "missing HTTP response from server"}
-            )
+            self._raise_exception({"code": -342, "message": "missing HTTP response from server"})
         elif httpresp.status == httplib.FORBIDDEN:
             msg = "dogecoind returns 403 Forbidden. Is your IP allowed?"
             raise TransportException(
@@ -165,9 +163,7 @@ class AuthServiceProxy(object):
     def __init__(self, service_url, transport=None, exception_wrapper=None):
         self._service_url = service_url
         self._id_counter = 0
-        self._transport = (
-            HTTPTransport(service_url) if transport is None else transport
-        )
+        self._transport = HTTPTransport(service_url) if transport is None else transport
         self._exception_wrapper = exception_wrapper
 
     def __getattr__(self, name):

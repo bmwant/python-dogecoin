@@ -42,9 +42,7 @@ def connect_to_local(filename=None):
     return DogecoinConnection(rpcuser, rpcpassword, "localhost", port)
 
 
-def connect_to_remote(
-    user, password, host="localhost", port=22555, use_https=False
-):
+def connect_to_remote(user, password, host="localhost", port=22555, use_https=False):
     """
     Connect to remote or alternative local dogecoin client instance.
 

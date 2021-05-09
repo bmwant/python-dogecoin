@@ -11,12 +11,8 @@ from decimal import Decimal
 def test_testnet():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", help="Specify configuration file")
-    parser.add_argument(
-        "--nolocal", help="Don't use connect_to_local", action="store_true"
-    )
-    parser.add_argument(
-        "--noremote", help="Don't use connect_to_remote", action="store_true"
-    )
+    parser.add_argument("--nolocal", help="Don't use connect_to_local", action="store_true")
+    parser.add_argument("--noremote", help="Don't use connect_to_remote", action="store_true")
     args = parser.parse_args()
 
     if args.config:
@@ -33,9 +29,7 @@ def test_testnet():
 
     connections = []
     if not args.nolocal:
-        local_conn = (
-            dogecoinrpc.connect_to_local()
-        )  # will use read_default_config
+        local_conn = dogecoinrpc.connect_to_local()  # will use read_default_config
         connections.append(local_conn)
     if not args.noremote:
         remote_conn = dogecoinrpc.connect_to_remote(
@@ -80,9 +74,7 @@ def test_testnet():
         messages = ("Hello, world!", "かたな")
         for message in messages:
             signature = conn.signmessage(dogecoinaddress, message)
-            assert (
-                conn.verifymessage(dogecoinaddress, signature, message) is True
-            )
+            assert conn.verifymessage(dogecoinaddress, signature, message) is True
 
         for accid in conn.listaccounts(as_dict=True).iterkeys():
             tx = conn.listtransactions(accid)

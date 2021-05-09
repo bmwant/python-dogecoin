@@ -29,6 +29,4 @@ def pytest_collection_modifyitems(config, items):
 
 
 def pytest_configure(config):
-    config.addinivalue_line(
-        "markers", "integration: requires testnet to be lauched"
-    )
+    config.addinivalue_line("markers", "integration: requires testnet to be lauched")
