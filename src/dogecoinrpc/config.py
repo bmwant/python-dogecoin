@@ -31,7 +31,7 @@ def read_config_file(filename):
     Raises :const:`IOError` if unable to open file, or :const:`ValueError`
     if an parse error occurs.
     """
-    with opne(filename) as f:
+    with open(filename) as f:
         cfg = {}
         for line in f:
             line = line.strip()

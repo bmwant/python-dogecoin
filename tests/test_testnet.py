@@ -1,9 +1,8 @@
 import argparse
-import sys
 
 import pytest
 import dogecoinrpc
-from dogecoinrpc.exceptions import DogecoinException, InsufficientFunds
+from dogecoinrpc.exceptions import DogecoinException, InsufficientFunds  # noqa: F401
 
 from decimal import Decimal
 
@@ -75,9 +74,9 @@ def test_testnet():
         conn.listreceivedbyaccount()
         # conn.backupwallet(destination)
         x = conn.validateaddress(address)
-        assert x.isvalid == True
+        assert x.isvalid is True
         x = conn.validateaddress("invalid")
-        assert x.isvalid == False
+        assert x.isvalid is False
         messages = ("Hello, world!", "かたな")
         for message in messages:
             signature = conn.signmessage(dogecoinaddress, message)

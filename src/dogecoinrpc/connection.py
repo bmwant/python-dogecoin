@@ -297,7 +297,7 @@ class DogecoinConnection(object):
         - *mempool* -- Add memory pool transactions.
         """
         tx = self.proxy.gettxout(txid, index, mempool)
-        if tx != None:
+        if tx is not None:
             return TransactionInfo(**tx)
         else:
             return TransactionInfo()
@@ -565,21 +565,6 @@ class DogecoinConnection(object):
         else:
             return self.proxy.sendmany(fromaccount, todict, minconf, comment)
 
-    def verifymessage(self, dogecoinaddress, signature, message):
-        """
-        Verifies a signature given the dogecoinaddress used to sign,
-        the signature itself, and the message that was signed.
-        Returns :const:`True` if the signature is valid, and :const:`False` if it is invalid.
-
-        Arguments:
-
-        - *dogecoinaddress* -- the dogecoinaddress used to sign the message
-        - *signature* -- the signature to be verified
-        - *message* -- the message that was originally signed
-
-        """
-        return self.proxy.verifymessage(dogecoinaddress, signature, message)
-
     def getwork(self, data=None):
         """
         Get work for remote mining, or submit result.
@@ -705,16 +690,18 @@ class DogecoinConnection(object):
         """
         return self.proxy.signmessage(address, message)
 
-    def verifymessage(self, address, signature, message):
+    def verifymessage(self, dogecoinaddress, signature, message):
         """
-        Verify a signed message
+        Verifies a signature given the dogecoinaddress used to sign,
+        the signature itself, and the message that was signed.
+        Returns :const:`True` if the signature is valid, and :const:`False` if it is invalid.
 
-        :param address: Dogecoin address used to sign a message
-        :type address: str or unicode
-        :param signature: The signature
-        :type signature: unicode
-        :param message: The message to sign
-        :type message: str or unicode
+        Arguments:
+
+        - *dogecoinaddress* -- the dogecoinaddress used to sign the message
+        - *signature* -- the signature to be verified
+        - *message* -- the message that was originally signed
+
         :rtype: bool
         """
-        return self.proxy.verifymessage(address, signature, message)
+        return self.proxy.verifymessage(dogecoinaddress, signature, message)

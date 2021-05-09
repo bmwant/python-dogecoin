@@ -98,7 +98,9 @@ class TransportException(Exception):
         return self.s
 
 
-##### General application defined errors
+######################################
+# General application defined errors #
+######################################
 class SafeMode(DogecoinException):
     """
     Operation denied in safe mode (run ``dogecoind`` with ``-disablesafemode``).
@@ -135,7 +137,9 @@ class InvalidParameter(DogecoinException):
     """
 
 
-##### Client errors
+#################
+# Client errors #
+#################
 class ClientException(DogecoinException):
     """
     P2P network error.
@@ -156,7 +160,9 @@ class DownloadingBlocks(ClientException):
     """
 
 
-##### Wallet errors
+#################
+# Wallet errors #
+#################
 class WalletError(DogecoinException):
     """
     Unspecified problem with wallet (key not found etc.)
@@ -243,8 +249,8 @@ def wrap_exception(error):
     """
     # work around to temporarily fix https://github.com/bitcoin/bitcoin/issues/3007
     if (
-        error["code"] == DogecoinException.WALLET_ERROR
-        and error["message"] == "Insufficient funds"
+        error["code"] == DogecoinException.WALLET_ERROR and
+        error["message"] == "Insufficient funds"
     ):
         error["code"] = DogecoinException.WALLET_INSUFFICIENT_FUNDS
     return _exception_map.get(error["code"], DogecoinException)(error)

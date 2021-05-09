@@ -49,6 +49,9 @@ setup(
             'mkdocs==1.1.2',
             'mkdocstrings==0.15.0',
         ],
-        'test': ['pytest==6.2.3'],
+        'test': [
+            'flake8==3.9.2',
+            'pytest==6.2.3',
+        ],
     },
 )
