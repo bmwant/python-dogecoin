@@ -59,13 +59,18 @@ $ make format
 
 ### Testing
 
-You need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and running and configured to use `testnet`.
+To launch basic set of unittests
 
 ```bash
 $ pyenv activate python-dogecoin
 $ pip install -e ".[test]"
-$ python tests/test.py
 $ pytest -sv tests/
+```
+
+To launch integration tests you need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and running and configured to use `testnet`.
+
+```bash
+$ pytest -sv tests/ --run-integration
 ```
 
 ### Much donations
