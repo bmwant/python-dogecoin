@@ -61,7 +61,8 @@ class ServerInfo(DStruct):
 
 class AccountInfo(DStruct):
     """
-    Information object returned by :func:`~dogecoinrpc.connection.DogecoinConnection.listreceivedbyaccount`.
+    Information object returned by
+    :func:`~dogecoinrpc.connection.DogecoinConnection.listreceivedbyaccount`.
 
     - *account* -- The account of the receiving address.
 
@@ -74,7 +75,8 @@ class AccountInfo(DStruct):
 
 class AddressInfo(DStruct):
     """
-    Information object returned by :func:`~dogecoinrpc.connection.DogecoinConnection.listreceivedbyaddress`.
+    Information object returned by
+    :func:`~dogecoinrpc.connection.DogecoinConnection.listreceivedbyaddress`.
 
     - *address* -- Receiving address.
 
@@ -89,7 +91,8 @@ class AddressInfo(DStruct):
 
 class TransactionInfo(DStruct):
     """
-    Information object returned by :func:`~dogecoinrpc.connection.DogecoinConnection.listtransactions`.
+    Information object returned by
+    :func:`~dogecoinrpc.connection.DogecoinConnection.listtransactions`.
 
     - *account* -- account name.
 
@@ -115,7 +118,8 @@ class TransactionInfo(DStruct):
 
 class AddressValidation(DStruct):
     """
-    Information object returned by :func:`~dogecoinrpc.connection.DogecoinConnection.validateaddress`.
+    Information object returned by
+    :func:`~dogecoinrpc.connection.DogecoinConnection.validateaddress`.
 
     - *isvalid* -- Validatity of address (:const:`True` or :const:`False`).
 

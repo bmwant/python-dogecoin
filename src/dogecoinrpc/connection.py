@@ -629,7 +629,8 @@ class DogecoinConnection(object):
 
         - *privkey* -- private key to import.
         - [acct] -- name of account to associate with private key
-        - [rescan] -- rescan blockchain for transcations containing altcoin address associated with privkey
+        - [rescan] -- rescan blockchain for transcations containing altcoin address
+            associated with privkey
         """
         return self.proxy.importprivkey(privkey, acct, rescan)
 

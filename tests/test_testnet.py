@@ -59,6 +59,7 @@ def test_testnet():
         address = conn.getaccountaddress(account)
         address2 = conn.getaccountaddress(account2)
         assert conn.getaccount(address) == account
+        assert conn.getaccount(address2) == account2
         addresses = conn.getaddressesbyaccount(account)
         assert address in addresses
         # conn.sendtoaddress(dogecoinaddress, amount, comment=None, comment_to=None)
