@@ -16,8 +16,11 @@ $ pip install -e .[dev]
 * Make tag and upload to github
 
 ```bash
-$ git tag -a vX.X
-$ git push origin vX.X
+$ git tag -a major.minor.patch -m "Release vmajor.minor.patch"
+$ git push origin major.minor.patch # refs/tags/major.minor.patch
+# e.g.
+$ git tag -a 0.1.2 -m "Release v0.1.2"
+$ git push origin "0.1.2"
 ```
 
 * Build and validate documentation
