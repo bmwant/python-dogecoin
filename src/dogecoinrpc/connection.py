@@ -671,3 +671,18 @@ class DogecoinConnection(object):
         :rtype: bool
         """
         return self.proxy.verifymessage(dogecoinaddress, signature, message)
+
+    def sendrawtransaction(self, raw_transaction):
+        """
+        Broadcasts a raw transaction to the network.
+
+        Arguments:
+        - *raw_transaction* -- The raw transaction hex string to broadcast
+
+        Returns:
+        The transaction hash (txid) if successful.
+
+        Raises:
+        DogecoinException if the transaction is rejected by the network.
+        """
+        return self.proxy.sendrawtransaction(raw_transaction)
