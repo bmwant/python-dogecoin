@@ -9,7 +9,7 @@ $ pip install -e .[dev]
 
 * Update Changelog (`changelog.md` file)
 
-* Change version number in `setup.py` file
+* Bump version number
 
 * Commit
 
@@ -33,12 +33,11 @@ $ mkdocs serve
 * Build package
 
 ```bash
-$ make clean
-$ python -m build
+poetry build
 ```
 
 * Upload to PyPI
 
 ```bash
-$ twine upload dist/*
+poetry publish
 ```
