@@ -77,6 +77,6 @@ poetry run pytest -sv tests/ --run-integration
 
 If you love [Dogecoin](https://dogecoin.com/) and want to support the project you can send coins to this [MyDoge](https://www.mydoge.com/) wallet
 
-`D7DA74qzZUyh9cctCxWovPTEovUSjGzL2S`
+`DAMheXnR5sw9c8UEJ2LB6twnXNrZwv14c8`
 
 🐕 🚀 🌕
