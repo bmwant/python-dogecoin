@@ -20,6 +20,7 @@
 """
 Utilities for reading dogecoin configuration files.
 """
+
 import os
 import platform
 from pathlib import Path

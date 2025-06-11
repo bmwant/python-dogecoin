@@ -85,7 +85,9 @@ class HTTPTransport(object):
 
         httpresp = self.connection.getresponse()
         if httpresp is None:
-            self._raise_exception({"code": -342, "message": "missing HTTP response from server"})
+            self._raise_exception(
+                {"code": -342, "message": "missing HTTP response from server"}
+            )
         elif httpresp.status == httplib.FORBIDDEN:
             msg = "dogecoind returns 403 Forbidden. Is your IP allowed?"
             raise TransportException(
