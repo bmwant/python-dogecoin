@@ -1,6 +1,6 @@
 [project]
 name = "python-dogecoin"
-version = "0.1.0"
+version = "0.2.0"
 description = "Friendly Dogecoin JSON-RPC API binding for Python 3"
 authors = [
   { name = "Misha Behersky", email = "bmwant@gmail.com" },

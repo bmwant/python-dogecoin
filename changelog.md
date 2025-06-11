@@ -1,5 +1,5 @@
-### 0.1.1
-* Add sendrawtransaction
+### 0.2.0
+* Add `sendrawtransaction` method
 
 ### 0.1.0
 * Drop support for Python < 3.9
