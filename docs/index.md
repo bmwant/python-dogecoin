@@ -13,7 +13,7 @@ The goal of this library is to make it easier for:
 ### Installation
 
 ```bash
-$ pip install python-dogecoin
+pip install python-dogecoin
 ```
 
 ### Usage
