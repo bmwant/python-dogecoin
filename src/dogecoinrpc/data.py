@@ -20,6 +20,7 @@
 """
 Dogecoin RPC service, data objects.
 """
+
 from dogecoinrpc.util import DStruct
 
 

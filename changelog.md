@@ -1,5 +1,9 @@
-### 0.0.5
+### 0.1.1
 * Add sendrawtransaction
+
+### 0.1.0
+* Drop support for Python < 3.9
+* Migrate to [ruff](https://docs.astral.sh/ruff/) for linting and formatting
 
 ### 0.0.4
 * Add package documentation via [MkDocs](https://www.mkdocs.org/)

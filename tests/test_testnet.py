@@ -11,8 +11,12 @@ from decimal import Decimal
 def test_testnet():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", help="Specify configuration file")
-    parser.add_argument("--nolocal", help="Don't use connect_to_local", action="store_true")
-    parser.add_argument("--noremote", help="Don't use connect_to_remote", action="store_true")
+    parser.add_argument(
+        "--nolocal", help="Don't use connect_to_local", action="store_true"
+    )
+    parser.add_argument(
+        "--noremote", help="Don't use connect_to_remote", action="store_true"
+    )
     args = parser.parse_args()
 
     if args.config:

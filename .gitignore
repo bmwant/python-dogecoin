@@ -144,3 +144,4 @@ Thumbs.db
 
 # profiling data
 .prof
+.ruff_cache/

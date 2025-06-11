@@ -38,7 +38,9 @@ class DogecoinException(Exception):
 
     # General application defined errors
     MISC_ERROR = -1  # std::exception thrown in command handling
-    FORBIDDEN_BY_SAFE_MODE = -2  # Server is in safe mode, and command is not allowed in safe mode
+    FORBIDDEN_BY_SAFE_MODE = (
+        -2
+    )  # Server is in safe mode, and command is not allowed in safe mode
     TYPE_ERROR = -3  # Unexpected type was passed as parameter
     INVALID_ADDRESS_OR_KEY = -5  # Invalid address or key
     OUT_OF_MEMORY = -7  # Ran out of memory during operation
@@ -55,11 +57,11 @@ class DogecoinException(Exception):
     WALLET_INSUFFICIENT_FUNDS = -6  # Not enough funds in wallet or account
     WALLET_INVALID_ACCOUNT_NAME = -11  # Invalid account name
     WALLET_KEYPOOL_RAN_OUT = -12  # Keypool ran out, call keypoolrefill first
-    WALLET_UNLOCK_NEEDED = -13  # Enter the wallet passphrase with walletpassphrase first
+    WALLET_UNLOCK_NEEDED = (
+        -13
+    )  # Enter the wallet passphrase with walletpassphrase first
     WALLET_PASSPHRASE_INCORRECT = -14  # The wallet passphrase entered was incorrect
-    WALLET_WRONG_ENC_STATE = (
-        -15
-    )  # Command given in wrong wallet encryption state (encrypting an encrypted wallet etc.)
+    WALLET_WRONG_ENC_STATE = -15  # Command given in wrong wallet encryption state (encrypting an encrypted wallet etc.)
     WALLET_ENCRYPTION_FAILED = -16  # Failed to encrypt the wallet
     WALLET_ALREADY_UNLOCKED = -17  # Wallet is already unlocked
 
@@ -82,9 +84,7 @@ class TransportException(Exception):
         Transport-level failure: {msg}
         Code: {code}
         Protocol: {protocol}
-        """.format(
-            msg=msg, code=code, protocol=protocol
-        )
+        """.format(msg=msg, code=code, protocol=protocol)
 
     def __str__(self):
         return self.s
@@ -240,6 +240,9 @@ def wrap_exception(error):
     Convert a JSON error object to a more specific Dogecoin exception.
     """
     # work around to temporarily fix https://github.com/bitcoin/bitcoin/issues/3007
-    if error["code"] == DogecoinException.WALLET_ERROR and error["message"] == "Insufficient funds":
+    if (
+        error["code"] == DogecoinException.WALLET_ERROR
+        and error["message"] == "Insufficient funds"
+    ):
         error["code"] = DogecoinException.WALLET_INSUFFICIENT_FUNDS
     return _exception_map.get(error["code"], DogecoinException)(error)

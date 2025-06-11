@@ -20,6 +20,7 @@
 """
 Connect to Dogecoin server via JSON-RPC.
 """
+
 from dogecoinrpc.proxy import AuthServiceProxy
 from dogecoinrpc.exceptions import (
     wrap_exception,
@@ -227,7 +228,9 @@ class DogecoinConnection(object):
         elif comment_to is None:
             return self.proxy.sendtoaddress(dogecoinaddress, amount, comment)
         else:
-            return self.proxy.sendtoaddress(dogecoinaddress, amount, comment, comment_to)
+            return self.proxy.sendtoaddress(
+                dogecoinaddress, amount, comment, comment_to
+            )
 
     def getreceivedbyaddress(self, dogecoinaddress, minconf=1):
         """
@@ -319,7 +322,9 @@ class DogecoinConnection(object):
         """
         return self.proxy.createrawtransaction(inputs, outputs)
 
-    def signrawtransaction(self, hexstring, previous_transactions=None, private_keys=None):
+    def signrawtransaction(
+        self, hexstring, previous_transactions=None, private_keys=None
+    ):
         """
         Sign inputs for raw transaction (serialized, hex-encoded).
 
@@ -337,7 +342,11 @@ class DogecoinConnection(object):
         - *private_keys* -- A (possibly empty) list of base58-encoded private
             keys that, if given, will be the only keys used to sign the transaction.
         """
-        return dict(self.proxy.signrawtransaction(hexstring, previous_transactions, private_keys))
+        return dict(
+            self.proxy.signrawtransaction(
+                hexstring, previous_transactions, private_keys
+            )
+        )
 
     def decoderawtransaction(self, hexstring):
         """
@@ -366,7 +375,10 @@ class DogecoinConnection(object):
         - *includeempty* -- Whether to include addresses that haven't received any payments.
 
         """
-        return [AddressInfo(**x) for x in self.proxy.listreceivedbyaddress(minconf, includeempty)]
+        return [
+            AddressInfo(**x)
+            for x in self.proxy.listreceivedbyaddress(minconf, includeempty)
+        ]
 
     def listaccounts(self, minconf=1, as_dict=False):
         """
@@ -394,7 +406,10 @@ class DogecoinConnection(object):
 
         - *includeempty* -- Whether to include addresses that haven't received any payments.
         """
-        return [AccountInfo(**x) for x in self.proxy.listreceivedbyaccount(minconf, includeempty)]
+        return [
+            AccountInfo(**x)
+            for x in self.proxy.listreceivedbyaccount(minconf, includeempty)
+        ]
 
     def listtransactions(self, account=None, count=10, from_=0, address=None):
         """
@@ -410,7 +425,9 @@ class DogecoinConnection(object):
         - *from_* -- Skip the first <from_> transactions.
         - *address* -- Receive address to consider
         """
-        accounts = [account] if account is not None else self.listaccounts(as_dict=True).keys()
+        accounts = (
+            [account] if account is not None else self.listaccounts(as_dict=True).keys()
+        )
         return [
             TransactionInfo(**tx)
             for acc in accounts
@@ -504,7 +521,9 @@ class DogecoinConnection(object):
         if comment is None:
             return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf)
         elif comment_to is None:
-            return self.proxy.sendfrom(fromaccount, todogecoinaddress, amount, minconf, comment)
+            return self.proxy.sendfrom(
+                fromaccount, todogecoinaddress, amount, minconf, comment
+            )
         else:
             return self.proxy.sendfrom(
                 fromaccount,
@@ -566,7 +585,9 @@ class DogecoinConnection(object):
 
 
         """
-        return [TransactionInfo(**tx) for tx in self.proxy.listunspent(minconf, maxconf)]
+        return [
+            TransactionInfo(**tx) for tx in self.proxy.listunspent(minconf, maxconf)
+        ]
 
     def keypoolrefill(self):
         "Fills the keypool, requires wallet passphrase to be set."

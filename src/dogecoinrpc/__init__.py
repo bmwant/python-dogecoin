@@ -20,6 +20,7 @@
 """
 dogecoin-python - Easy-to-use Dogecoin API client
 """
+
 from dogecoinrpc.connection import DogecoinConnection
 from dogecoinrpc.config import read_default_config
 

@@ -1,25 +1,48 @@
+[project]
+name = "python-dogecoin"
+version = "0.1.0"
+description = "Friendly Dogecoin JSON-RPC API binding for Python 3"
+authors = [
+  { name = "Misha Behersky", email = "bmwant@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = [
+  "rpc",
+  "doge",
+  "dogecoin",
+  "blockchain",
+  "cryptocurrency",
+  "json-rpc",
+  "api",
+  "python-dogecoin",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Office/Business :: Financial",
+]
+dependencies = []
+
+[tool.poetry]
+packages = [{ include = "dogecoinrpc", from = "src" }]
+
+[project.optional-dependencies]
+dev = ["pytest (>=8.4.0,<9.0.0)", "ruff (>=0.11.13,<0.12.0)"]
+docs = ["mkdocs (>=1.6.1,<2.0.0)", "mkdocstrings (>=0.29.1,<0.30.0)"]
+
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.black]
-line-length = 100
-target-version = ["py36", "py37", "py38"]
-exclude = '''
-
-(
-  /(
-      \.eggs
-    | \.git
-    | \.egg-info
-    | \.tox
-    | \.venv
-    | build
-    | doc
-    | sphinx
-    | dist
-  )/
-  | setup.py
-
-)
-'''
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -3,27 +3,31 @@
 [![PyPI](https://img.shields.io/pypi/v/python-dogecoin)](https://pypi.org/project/python-dogecoin)
 [![Downloads](https://pepy.tech/badge/python-dogecoin)](https://pepy.tech/project/python-dogecoin)
 [![Documentation Status](https://readthedocs.org/projects/python-dogecoin/badge/?version=latest)](https://python-dogecoin.readthedocs.io/en/latest/?badge=latest)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![EditorConfig](https://img.shields.io/badge/-EditorConfig-grey?logo=editorconfig)](https://editorconfig.org/)
 ![Tests](https://github.com/bmwant/python-dogecoin/actions/workflows/tests.yml/badge.svg)
+
+
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)
 
 
 This is a fork of a [dogecoin-python](https://github.com/jcsaaddupuy/dogecoin-python) library focused on a Python 3 support only. Note that you are looking for `python-dogecoin` version [on PyPI](https://pypi.org/project/python-dogecoin/) instead of original `dogecoin-python`.
 
 This package allows performing commands such as listing the current balance and sending coins to the Satoshi (original) client from Python. The communication with the client happens over JSON-RPC.
 
-:book: Documentation for the library can be found [here](https://python-dogecoin.readthedocs.io/en/latest/).
+📖 Documentation for the library can be found [here](https://python-dogecoin.readthedocs.io/en/latest/).
 
-:lemon: This project uses [podmena](https://github.com/bmwant/podmena) library to add fancy icons to commit messages.
+🍋 This project uses [podmena](https://github.com/bmwant/podmena) library to add fancy icons to commit messages.
 
 ### Installation
 
 ```bash
-$ pip install python-dogecoin
+pip install python-dogecoin
 ```
 
 ### Usage
 
-Connect to blockchain daemon locally and make a simple request
+Connect to the blockchain daemon locally and make a simple request
 
 ```python
 """
@@ -41,21 +45,16 @@ For other examples and code snippets [check documentation](https://python-dogeco
 
 ### Development
 
-[pyenv](https://github.com/pyenv/pyenv) is used to easily create virtual environment for the development. Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) to quickly setup it locally.
+[Poetry](https://python-poetry.org/docs/#installation) is used to manage virtual environment and project's dependencies as well as building the final package.
 
 ```bash
-$ pyenv virtualenv 3.8.1 python-dogecoin
-$ pyenv activate python-dogecoin
-$ pip install --upgrade pip
-$ pip install -e .
+poetry install --all-extras
 ```
 
 Formatting your code after adding changes
 
 ```bash
-$ pyenv activate python-dogecoin
-$ pip install -e ".[dev]"
-$ make format
+make format
 ```
 
 ### Testing
@@ -63,22 +62,21 @@ $ make format
 To launch basic set of unittests
 
 ```bash
-$ pyenv activate python-dogecoin
-$ pip install -e ".[test]"
-$ pytest -sv tests/
-$ flake8 .  # lint code to spot any other errors
+make tests
+# or the same underlying command
+poetry run pytest -sv tests/
 ```
 
 To launch integration tests you need [Dogecoin server](https://github.com/dogecoin/dogecoin) to be up and running and configured to use `testnet`.
 
 ```bash
-$ pytest -sv tests/ --run-integration
+poetry run pytest -sv tests/ --run-integration
 ```
 
 ### Much donations
 
-If you love [Dogecoin](https://dogecoin.com/) and want to support the project you can send coins to this wallet
+If you love [Dogecoin](https://dogecoin.com/) and want to support the project you can send coins to this [MyDoge](https://www.mydoge.com/) wallet
 
 `D7DA74qzZUyh9cctCxWovPTEovUSjGzL2S`
 
-:dog2: :rocket: :full_moon:
+🐕 🚀 🌕
