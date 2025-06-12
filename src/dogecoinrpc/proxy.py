@@ -61,7 +61,7 @@ class HTTPTransport(object):
         self.auth_header = "Basic ".encode("utf8") + base64.b64encode(authpair)
         if self.parsed_url.scheme == "https":
             self.connection = httplib.HTTPSConnection(
-                self.parsed_url.hostname, port, None, None, False, HTTP_TIMEOUT
+                self.parsed_url.hostname, port, None, None, HTTP_TIMEOUT
             )
         else:
             self.connection = httplib.HTTPConnection(
